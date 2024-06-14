@@ -9,6 +9,7 @@ def parse_code(code_response):
 
 request_token_url = "https://getpocket.com/v3/oauth/request"
 access_token_url = "https://getpocket.com/v3/oauth/authorize"
+authenticated_requests_url = "https://getpocket.com/v3/get"
 consumer_key = os.getenv('CONSUMER_KEY')
 
 request_token_payload = {
@@ -23,4 +24,10 @@ access_token_payload = {
     "consumer_key": consumer_key,
     "code": request_token
 }
-print(requests.post(url=access_token_url, json=access_token_payload).text)
+access_token = requests.post(url=access_token_url, json=access_token_payload).text
+print(access_token)
+
+authenticated_requests_payload = {
+    "consumer_key": consumer_key,
+    "access_token": access_token
+}
